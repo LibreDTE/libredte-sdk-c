@@ -23,7 +23,7 @@
  *  - Generar DTE real a partir del temporal
  *  - Obtener PDF a partir del DTE real
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
- * @version 2017-02-22
+ * @version 2017-02-23
  */
 
 #include "LibreDTE.h"
@@ -68,14 +68,14 @@ char *dte_crear()
 
 void dte_guardar_pdf(char *file, char* data, size_t size)
 {
-	int i;
+	size_t i;
 	FILE *fd = fopen(file, "wb");
 	if (!fd) {
 		fprintf(stderr, "Error al guardar el PDF\n");
 		exit(EXIT_FAILURE);
 	}
 	for (i=0; i<size; i++) {
-		fwrite(data, sizeof(char), 1, fd);
+		fwrite(data+i, sizeof(char), 1, fd);
 	}
 	fclose(fd);
 }
