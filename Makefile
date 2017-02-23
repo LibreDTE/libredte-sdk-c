@@ -12,11 +12,16 @@ $(LIB): $(OBJECTS)
 	ar ru $@ $(OBJECTS)
 	ranlib $@
 
-clean:
+clean: clean-ejemplos
 	rm -rf $(ROOTDIR)/lib
-	for OBJ in $(shell find | grep .o$$); do rm -f $$OBJ; done
+	for OBJ in $(shell find src | grep .o$$); do rm -f $$OBJ; done
 
 .PHONY: ejemplos
 ejemplos:
 	cd ejemplos; $(CC) $(CFLAGS) 001-generar_dte.c -o 001-generar_dte $(LIB) -lcurl -ljson-c
 	cd ejemplos; $(CC) $(CFLAGS) 002-actualizar_estado.c -o 002-actualizar_estado $(LIB) -lcurl
+
+clean-ejemplos:
+	rm -f ejemplos/001-generar_dte
+	rm -f ejemplos/002-actualizar_estado
+
